@@ -941,6 +941,11 @@ setup_rvmrc()
 setup_user_profile()
 {
   (( UID > 0 )) || return 0
+  ( # Source in a subshell to avoid setting other options
+    [ -f "~/.rvmrc" ] &&
+    [ -n "$rvm_ignore_dotfiles" ] &&
+    exit 0
+  )
 
   export user_profile_file
   export -a user_login_files user_rc_files
